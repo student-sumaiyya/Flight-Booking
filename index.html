@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Plane Booking Website</title>
+
+  <!-- INTERNAL CSS -->
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f7fb;
+    }
+
+    header{
+      background:#0077cc;
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+
+    nav{
+      background:#005fa3;
+      padding:15px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .hero{
+      height:300px;
+      background:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      font-size:40px;
+      font-weight:bold;
+      text-shadow:2px 2px 5px black;
+    }
+
+    .page{
+      display:none;
+      padding:30px 0;
+    }
+
+    #home-page{
+      display:block;
+    }
+
+    .box{
+      width:80%;
+      max-width:900px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2{
+      text-align:center;
+      margin-bottom:20px;
+      color:#0077cc;
+    }
+
+    .form-group{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    input,
+    select,
+    textarea{
+      padding:12px;
+      border:1px solid #ccc;
+      border-radius:5px;
+      width:100%;
+    }
+
+    textarea{
+      height:120px;
+      resize:none;
+    }
+
+    button{
+      width:100%;
+      padding:14px;
+      border:none;
+      background:#0077cc;
+      color:white;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    button:hover{
+      background:#005fa3;
+    }
+
+    .flights{
+      width:80%;
+      margin:auto;
+    }
+
+    .flight-card{
+      background:white;
+      padding:20px;
+      margin-bottom:20px;
+      border-radius:10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .price{
+      color:green;
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    footer{
+      background:#005fa3;
+      color:white;
+      text-align:center;
+      padding:15px;
+      margin-top:30px;
+    }
+
+    @media(max-width:600px){
+
+      .hero{
+        font-size:28px;
+        text-align:center;
+      }
+
+      .flight-card{
+        flex-direction:column;
+        gap:10px;
+      }
+
+      nav{
+        flex-direction:column;
+        align-items:center;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>SkyFly Airlines ✈️</h1>
+    <p>Book Your Flight Easily</p>
+  </header>
+
+  <nav>
+    <a onclick="showPage('home-page')">Home</a>
+    <a onclick="showPage('booking-page')">Book Flight</a>
+    <a onclick="showPage('flights-page')">Flights</a>
+    <a onclick="showPage('about-page')">About</a>
+    <a onclick="showPage('contact-page')">Contact</a>
+  </nav>
+
+  <div class="hero">
+    Fly High With Comfort
+  </div>
+
+  <!-- HOME PAGE -->
+  <section class="page" id="home-page">
+
+    <div class="box">
+      <h2>Welcome to SkyFly Airlines</h2>
+
+      <p style="text-align:center; font-size:18px;">
+        Safe and comfortable online flight booking service.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- BOOKING PAGE -->
+  <section class="page" id="booking-page">
+
+    <div class="box">
+
+      <h2>Flight Booking</h2>
+
+      <div class="form-group">
+        <input type="text" id="from" placeholder="From City">
+
+        <input type="text" id="to" placeholder="To City">
+      </div>
+
+      <div class="form-group">
+
+        <input type="date" id="date">
+
+        <select id="classType">
+          <option>Economy</option>
+          <option>Business</option>
+          <option>First Class</option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <input type="number" id="passengers" placeholder="Passengers">
+
+      </div>
+
+      <button onclick="bookFlight()">
+        Book Now
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- FLIGHTS PAGE -->
+  <section class="page" id="flights-page">
+
+    <div class="flights">
+
+      <h2>Available Flights</h2>
+
+      <div class="flight-card">
+
+        <div>
+          <h3>SkyFly 101</h3>
+          <p>Mumbai → Delhi</p>
+        </div>
+
+        <div class="price">₹5,500</div>
+
+      </div>
+
+      <div class="flight-card">
+
+        <div>
+          <h3>SkyFly 202</h3>
+          <p>Pune → Bangalore</p>
+        </div>
+
+        <div class="price">₹4,200</div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT PAGE -->
+  <section class="page" id="about-page">
+
+    <div class="box">
+
+      <h2>About Us</h2>
+
+      <p style="text-align:center; font-size:18px;">
+        SkyFly Airlines provides affordable and fast ticket booking services.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT PAGE -->
+  <section class="page" id="contact-page">
+
+    <div class="box">
+
+      <h2>Contact Us</h2>
+
+      <div class="form-group">
+
+        <input type="text" placeholder="Your Name">
+
+        <input type="email" placeholder="Your Email">
+
+      </div>
+
+      <textarea placeholder="Write your message here..."></textarea>
+
+      <br><br>
+
+      <button onclick="sendMessage()">
+        Send Message
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- CONFIRMATION PAGE -->
+  <section class="page" id="confirmation-page">
+
+    <div class="box">
+
+      <div id="confirmation"></div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2026 SkyFly Airlines</p>
+  </footer>
+
+  <!-- INTERNAL JAVASCRIPT -->
+  <script>
+
+    function showPage(pageId){
+
+      let pages = document.querySelectorAll('.page');
+
+      pages.forEach(function(page){
+        page.style.display = 'none';
+      });
+
+      document.getElementById(pageId).style.display = 'block';
+    }
+
+    function bookFlight(){
+
+      let from = document.getElementById('from').value;
+      let to = document.getElementById('to').value;
+      let date = document.getElementById('date').value;
+      let passengers = document.getElementById('passengers').value;
+      let classType = document.getElementById('classType').value;
+
+      if(from === '' || to === '' || date === '' || passengers === ''){
+
+        alert('Please fill all details!');
+        return;
+      }
+
+      document.getElementById('confirmation').innerHTML = `
+
+        <h2>Booking Confirmation ✅</h2>
+
+        <p><strong>From:</strong> ${from}</p>
+
+        <p><strong>To:</strong> ${to}</p>
+
+        <p><strong>Date:</strong> ${date}</p>
+
+        <p><strong>Passengers:</strong> ${passengers}</p>
+
+        <p><strong>Class:</strong> ${classType}</p>
+
+        <br>
+
+        <button onclick="refreshPage()">
+          Book Another Ticket
+        </button>
+      `;
+
+      showPage('confirmation-page');
+    }
+
+    function refreshPage(){
+      location.reload();
+    }
+
+    function sendMessage(){
+      alert('Message Sent Successfully!');
+    }
+
+  </script>
+
+</body>
+</html>
