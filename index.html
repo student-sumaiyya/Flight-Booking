@@ -1,601 +1,590 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>SkyFly Airlines</title>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-
-    <style>
-      :root {
-        --bg: #f4f7fb;
-        --text: #222;
-        --card: #ffffff;
-        --primary: #0077cc;
-        --secondary: #005fa3;
-      }
-
-      .dark-theme {
-        --bg: #121212;
-        --text: #ffffff;
-        --card: #1e1e1e;
-        --primary: #0d8bff;
-        --secondary: #0066cc;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
-
-      body {
-        background: var(--bg);
-        color: var(--text);
-        display: flex;
-        transition: 0.3s;
-      }
-
-      /* SIDEBAR */
-
-      .sidebar {
-        width: 230px;
-        height: 100vh;
-        background: var(--secondary);
-        position: fixed;
-        color: white;
-        padding-top: 20px;
-      }
-
-      .sidebar h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: white;
-      }
-
-      .sidebar a {
-        display: block;
-        color: white;
-        text-decoration: none;
-        padding: 15px 20px;
-        cursor: pointer;
-      }
-
-      .sidebar a:hover {
-        background: var(--primary);
-      }
-
-      .sidebar a.active {
-        background: var(--primary);
-        border-left: 5px solid white;
-      }
-
-      /* THEME ICON */
-
-      .theme-btn {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 44px;
-        height: 44px;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 18px;
-        background: var(--card);
-        color: var(--text);
-        transition: 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* MAIN */
-
-      .main {
-        margin-left: 230px;
-        width: 100%;
-      }
-
-      header {
-        position: relative;
-        background: var(--primary);
-        color: white;
-        text-align: center;
-        padding: 20px 70px;
-      }
-
-      .hero {
-        height: 320px;
-        background: url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200")
-          center/cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 42px;
-        font-weight: bold;
-        text-shadow: 2px 2px 5px black;
-      }
-
-      .page {
-        display: none;
-        padding: 30px;
-      }
-
-      #home-page {
-        display: block;
-      }
-
-      .box {
-        background: var(--card);
-        padding: 30px;
-        border-radius: 12px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      h2 {
-        color: var(--primary);
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      .form-group {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-
-      input,
-      select {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-      }
-
-      button {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 6px;
-        background: var(--primary);
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-      }
-
-      button:hover {
-        background: var(--secondary);
-      }
-
-      /* FLIGHT CARD */
-
-      .flight-card {
-        background: var(--card);
-        border-radius: 12px;
-        overflow: hidden;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .flight-card img {
-        width: 100%;
-        height: 320px;
-        object-fit: cover;
-      }
-
-      .flight-content {
-        padding: 20px;
-      }
-
-      .price {
-        color: limegreen;
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      /* BOOKING CARD */
-
-      .ticket-card {
-        background: linear-gradient(135deg, #0077cc, #00b4ff);
-        color: white;
-        padding: 25px;
-        border-radius: 15px;
-        margin-top: 25px;
-        animation: showCard 0.5s ease;
-      }
-      .ticket-card h2 {
-        margin-bottom: 10px;
-        color: #fff;
-      }
-
-      .ticket-card p {
-        line-height: 2;
-        font-size: 17px;
-      }
-
-      @keyframes showCard {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      footer {
-        background: var(--secondary);
-        color: white;
-        text-align: center;
-        padding: 15px;
-      }
-
-      @media (max-width: 768px) {
-        body {
-          flex-direction: column;
-        }
-
-        .sidebar {
-          width: 100%;
-          height: auto;
-          position: relative;
-        }
-
-        .main {
-          margin-left: 0;
-        }
-
-        .hero {
-          font-size: 28px;
-          text-align: center;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- SIDEBAR -->
-
-    <div class="sidebar">
-      <h2>SkyFly ✈️</h2>
-
-      <a onclick="showPage('home-page')">🏠 Home</a>
-
-      <a onclick="showPage('booking-page')">🎫 Book Flight</a>
-
-      <a onclick="showPage('flights-page')">✈️ Flights</a>
-
-      <a onclick="showPage('payment-page')">💳 Payment</a>
-
-      <a onclick="showPage('contact-page')">📞 Contact</a>
-    </div>
-
-    <!-- MAIN -->
-
-    <div class="main">
-      <header>
-        <h1>SkyFly Airlines</h1>
-
-        <p>Book Your Flight Easily</p>
-
-        <button class="theme-btn" onclick="toggleTheme()" id="themeIcon">
-          <i class="bi bi-moon-fill"></i>
-        </button>
-      </header>
-
-      <div class="hero">Fly High With Comfort ✈️</div>
-
-      <!-- HOME -->
-
-      <section class="page" id="home-page">
-        <div class="box">
-          <h2>Welcome To SkyFly</h2>
-
-          <p style="text-align: center; font-size: 18px; line-height: 2">
-            Modern airline booking website with interactive booking system.
-          </p>
-        </div>
-      </section>
-
-      <!-- BOOKING -->
-
-      <section class="page" id="booking-page">
-        <div class="box">
-          <h2>Book Flight</h2>
-
-          <div class="form-group">
-            <input
-              type="text"
-              id="from"
-              list="cities"
-              placeholder="From City"
-            />
-
-            <input type="text" id="to" list="cities" placeholder="To City" />
-
-            <datalist id="cities">
-              <option value="Mumbai"></option>
-              <option value="Delhi"></option>
-              <option value="Pune"></option>
-              <option value="Bangalore"></option>
-              <option value="Hyderabad"></option>
-              <option value="Chennai"></option>
-              <option value="Kolkata"></option>
-              <option value="Dubai"></option>
-              <option value="London"></option>
-            </datalist>
-          </div>
-
-          <div class="form-group">
-            <input type="date" id="date" />
-
-            <select id="classType">
-              <option>Economy</option>
-
-              <option>Business</option>
-
-              <option>First Class</option>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyFly Flight Booking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#07121f;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+nav{
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:700;
+    color:#00d9ff;
+}
+
+nav ul{
+    display:flex;
+    gap:35px;
+    list-style:none;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#00d9ff;
+}
+
+/* HERO */
+
+.hero{
+    height:100vh;
+    background:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero-content{
+    animation:fadeUp 1.5s ease;
+}
+
+.hero h1{
+    font-size:70px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:35px;
+    color:#ddd;
+}
+
+/* BOOKING */
+
+.booking-box{
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    max-width:1000px;
+    animation:fadeUp 1.8s ease;
+}
+
+.booking-box input,
+.booking-box select{
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+}
+
+.booking-box button{
+    border:none;
+    border-radius:10px;
+    background:#00d9ff;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+   width:100%;
+   height:50px;
+}
+
+.booking-box button:hover{
+    background:white;
+    transform:scale(1.05);
+}
+
+/* SECTION */
+
+section{
+    padding:100px 8%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:45px;
+    margin-bottom:50px;
+}
+
+/* FLIGHTS */
+
+.flight-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.flight-card{
+    background:#102033;
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    animation:fadeUp 1s ease;
+}
+
+.flight-card:hover{
+    transform:translateY(-10px);
+}
+
+.flight-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.flight-info{
+    padding:25px;
+}
+
+.flight-info h3{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.flight-info p{
+    color:#bbb;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#00d9ff;
+    font-size:30px;
+    font-weight:700;
+}
+
+.flight-info button{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#00d9ff;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.flight-info button:hover{
+    background:white;
+}
+
+/* OFFERS */
+
+.offer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:30px;
+}
+
+.offer-card{
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    animation:fadeUp 1.5s ease;
+}
+
+.offer-card img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+.offer-card:hover img{
+    transform:scale(1.1);
+}
+
+.offer-overlay{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:30px;
+    background:linear-gradient(transparent,black);
+}
+
+.offer-overlay h3{
+    font-size:30px;
+}
+
+/* SUPPORT */
+
+.support-box{
+    background:#102033;
+    max-width:700px;
+    margin:auto;
+    padding:40px;
+    border-radius:20px;
+    animation:fadeUp 2s ease;
+}
+
+.support-box input,
+.support-box textarea{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#1d3550;
+    color:white;
+}
+
+.support-box button{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#00d9ff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* POPUP */
+
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:#102033;
+    padding:40px;
+    border-radius:20px;
+    width:90%;
+    max-width:500px;
+    text-align:center;
+    transition:0.4s;
+    z-index:9999;
+}
+
+.popup.active{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.popup h2{
+    color:#00d9ff;
+    margin-bottom:20px;
+}
+
+.close-btn{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#00d9ff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    background:black;
+    text-align:center;
+    padding:25px;
+    color:#aaa;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">SkyFly</div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#flights">Flights</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#support">Support</a></li>
+    </ul>
+
+</nav>
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Book Your Dream Flight</h1>
+
+        <p>Interactive Flight Booking Website UI</p>
+
+        <div class="booking-box">
+
+            <input type="text" id="from" placeholder="From">
+
+            <input type="text" id="to" placeholder="To">
+
+            <input type="date" id="date">
+
+            <select id="travelClass">
+                <option>Economy</option>
+                <option>Business</option>
+                <option>First Class</option>
             </select>
-          </div>
 
-          <div class="form-group">
-            <input type="number" id="passengers" placeholder="Passengers" />
-          </div>
+            <button onclick="bookFlight()">Search Flight</button>
 
-          <button onclick="bookFlight()">Book Flight</button>
         </div>
 
-        <!-- BOOKING CARD -->
-
-        <div id="ticketSection"></div>
-      </section>
-
-      <!-- FLIGHTS -->
-
-      <section class="page" id="flights-page">
-        <h2>Available Flights</h2>
-
-        <div class="flight-card">
-          <img
-            src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80
-"
-          />
-
-          <div class="flight-content">
-            <h3>SkyFly 101</h3>
-
-            <p>Mumbai → Delhi</p>
-
-            <p>Date: 20 May 2026</p>
-
-            <div class="price">₹5,500</div>
-          </div>
-        </div>
-
-        <div class="flight-card">
-          <img
-            src="https://images.unsplash.com/photo-1587019158091-1a103c5dd17f?auto=format&fit=crop&w=1200&q=80"
-          />
-
-          <div class="flight-content">
-            <h3>SkyFly 202</h3>
-
-            <p>Pune → Bangalore</p>
-
-            <p>Date: 22 May 2026</p>
-
-            <div class="price">₹4,200</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAYMENT -->
-
-      <section class="page" id="payment-page">
-        <div class="box">
-          <h2>Payment Details 💳</h2>
-
-          <div class="form-group">
-            <input type="text" id="cardName" placeholder="Card Holder Name" />
-
-            <input type="text" id="cardNumber" placeholder="Card Number" />
-          </div>
-
-          <div class="form-group">
-            <input type="month" id="expiry" />
-
-            <input type="password" id="cvv" placeholder="CVV" />
-          </div>
-
-          <button onclick="makePayment()">Pay Now</button>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-
-      <section class="page" id="contact-page">
-        <div class="box">
-          <h2>Contact Us</h2>
-
-          <div class="form-group">
-            <input type="text" id="contactName" placeholder="Your Name" />
-
-            <input type="email" id="contactEmail" placeholder="Your Email" />
-          </div>
-
-          <button onclick="sendMessage()">Send Message</button>
-        </div>
-      </section>
-
-      <footer>
-        <p>© 2026 SkyFly Airlines</p>
-      </footer>
     </div>
 
-    <script>
-      function showPage(pageId) {
-        // Hide all pages
-        let pages = document.querySelectorAll(".page");
-        pages.forEach((page) => (page.style.display = "none"));
+</div>
 
-        // Show selected page
-        document.getElementById(pageId).style.display = "block";
+<!-- FLIGHTS -->
 
-        // Update active link styling
-        let links = document.querySelectorAll(".sidebar a");
-        links.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("onclick").includes(pageId)) {
-            link.classList.add("active");
-          }
-        });
-      }
+<section id="flights">
 
-      /* THEME */
+    <h2 class="section-title">Popular Flights</h2>
 
-      function toggleTheme() {
-        document.body.classList.toggle("dark-theme");
+    <div class="flight-container">
 
-        let icon = document.getElementById("themeIcon");
+        <div class="flight-card">
 
-        if (document.body.classList.contains("dark-theme")) {
-          icon.innerHTML = '<i class="bi bi-sun-fill"></i>';
-        } else {
-          icon.innerHTML = '<i class="bi bi-moon-fill"></i>';
-        }
-      }
+            <img src="https://images.unsplash.com/photo-1544016768-982d1554f0b9?auto=format&fit=crop&w=1200&q=80">
 
-      /* BOOK FLIGHT */
+            <div class="flight-info">
 
-      function bookFlight() {
-        let from = document.getElementById("from").value;
+                <h3>Mumbai → Dubai</h3>
 
-        let to = document.getElementById("to").value;
+                <p>Departure : 10:30 AM</p>
 
-        let date = document.getElementById("date").value;
+                <p class="price">₹18,999</p>
 
-        let passengers = document.getElementById("passengers").value;
+                <button onclick="quickBook('Mumbai','Dubai')">Book Now</button>
 
-        let classType = document.getElementById("classType").value;
+            </div>
 
-        if (from === "" || to === "" || date === "" || passengers === "") {
-          alert("Please fill all details!");
+        </div>
 
-          return;
-        }
+        <div class="flight-card">
 
-        /* CURRENT TIME */
+            <img src="https://images.unsplash.com/photo-1587019158091-1a103c5dd17f?auto=format&fit=crop&w=1200&q=80">
 
-        let bookingTime = new Date().toLocaleTimeString();
-        let pricePerPerson = 5500;
-        let totalPrice = (passengers * pricePerPerson).toLocaleString();
+            <div class="flight-info">
 
-        document.getElementById("ticketSection").innerHTML = `
+                <h3>Pune → Delhi</h3>
 
-<div class="ticket-card">
+                <p>Departure : 07:45 AM</p>
 
-<h2>✅ Booking Confirmed</h2>
+                <p class="price">₹5,499</p>
 
-<p><strong>From:</strong> ${from}</p>
+                <button onclick="quickBook('Pune','Delhi')">Book Now</button>
 
-<p><strong>To:</strong> ${to}</p>
+            </div>
 
-<p><strong>Date:</strong> ${date}</p>
+        </div>
 
-<p><strong>Passengers:</strong> ${passengers}</p>
+        <div class="flight-card">
 
-<p><strong>Class:</strong> ${classType}</p>
+            <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80">
 
-<p><strong>Total Price:</strong> ₹${totalPrice}</p>
+            <div class="flight-info">
 
-<p><strong>Booking Time:</strong> ${bookingTime}</p>
+                <h3>Bangalore → Singapore</h3>
 
-<br>
+                <p>Departure : 09:15 PM</p>
 
-<button onclick="showPage('payment-page')" style="background: white; color: var(--primary); margin-bottom: 10px;">
-Proceed To Payment 💳
-</button>
+                <p class="price">₹22,499</p>
 
-<button onclick="resetBooking()" style="background: transparent; border: 1px solid white;">
-Book Another Flight 🔄
-</button>
+                <button onclick="quickBook('Bangalore','Singapore')">Book Now</button>
 
-</br>
+            </div>
 
-`;
-      }
+        </div>
 
-      /* RESET */
+    </div>
 
-      function resetBooking() {
-        document.getElementById("from").value = "";
+</section>
 
-        document.getElementById("to").value = "";
+<!-- OFFERS -->
 
-        document.getElementById("date").value = "";
+<section id="offers">
 
-        document.getElementById("passengers").value = "";
+    <h2 class="section-title">Best Offers</h2>
 
-        document.getElementById("ticketSection").innerHTML = "";
-      }
+    <div class="offer-container">
 
-      /* PAYMENT */
+        <div class="offer-card">
 
-      function makePayment() {
-        let cardName = document.getElementById("cardName").value;
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop">
 
-        let cardNumber = document.getElementById("cardNumber").value;
+            <div class="offer-overlay">
 
-        let expiry = document.getElementById("expiry").value;
+                <h3>Flight + Hotel Combo</h3>
 
-        let cvv = document.getElementById("cvv").value;
+                <p>Save 40% Today</p>
 
-        if (
-          cardName === "" ||
-          cardNumber === "" ||
-          expiry === "" ||
-          cvv === ""
-        ) {
-          alert("Please fill payment details!");
+            </div>
 
-          return;
-        }
+        </div>
 
-        alert("Payment Successful ✅");
-      }
+        <div class="offer-card">
 
-      /* CONTACT */
+            <img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1200&auto=format&fit=crop">
 
-      function sendMessage() {
-        let name = document.getElementById("contactName").value;
-        let email = document.getElementById("contactEmail").value;
+            <div class="offer-overlay">
 
-        if (name === "" || email === "") {
-          alert("Please fill all details!");
-          return;
-        }
+                <h3>Summer International Sale</h3>
 
-        if (confirm("Do you want to send this message?")) {
-          alert("Message Sent! We will contact you soon.");
-          document.getElementById("contactName").value = "";
-          document.getElementById("contactEmail").value = "";
-        } else {
-          alert("Message Cancelled.");
-        }
-      }
-    </script>
-  </body>
+                <p>Flat 30% OFF</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SUPPORT -->
+
+<section id="support">
+
+    <h2 class="section-title">Customer Support</h2>
+
+    <div class="support-box">
+
+        <input type="text" placeholder="Your Name">
+
+        <input type="email" placeholder="Your Email">
+
+        <textarea rows="5" placeholder="Write Your Problem"></textarea>
+
+        <button>Submit Ticket</button>
+
+    </div>
+
+</section>
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+    <h2>Booking Confirmed ✈</h2>
+
+    <p id="ticket"></p>
+
+    <button class="close-btn" onclick="closePopup()">Close</button>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 SkyFly Flight Booking Website
+
+</footer>
+
+<script>
+
+function bookFlight(){
+
+    let from = document.getElementById('from').value;
+    let to = document.getElementById('to').value;
+    let date = document.getElementById('date').value;
+    let travelClass = document.getElementById('travelClass').value;
+
+    if(from==='' || to==='' || date===''){
+        alert('Please Fill All Details');
+        return;
+    }
+
+    let bookingId = 'SKY' + Math.floor(Math.random()*100000);
+
+    document.getElementById('ticket').innerHTML =
+    `
+    Booking ID : <b>${bookingId}</b><br><br>
+    From : <b>${from}</b><br>
+    To : <b>${to}</b><br>
+    Date : <b>${date}</b><br>
+    Class : <b>${travelClass}</b><br><br>
+    Status : <span style="color:#00ff88">Confirmed</span>
+    `;
+
+    document.getElementById('popup').classList.add('active');
+
+}
+
+function closePopup(){
+
+    document.getElementById('popup').classList.remove('active');
+
+}
+
+function quickBook(from,to){
+
+    document.getElementById('from').value = from;
+    document.getElementById('to').value = to;
+
+    document.getElementById('home').scrollIntoView({
+        behavior:'smooth'
+    });
+
+}
+
+</script>
+
+</body>
 </html>
