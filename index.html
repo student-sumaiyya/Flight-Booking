@@ -48,6 +48,22 @@ nav{
     color:#00d9ff;
 }
 
+/* HAMBURGER MENU */
+.menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-btn span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    transition: 0.3s;
+}
+
 nav ul{
     display:flex;
     gap:35px;
@@ -339,6 +355,77 @@ footer{
 
 }
 
+/* RESPONSIVE MEDIA QUERIES */
+
+@media (max-width: 768px) {
+    nav {
+        padding: 15px 5%;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+
+    .menu-btn.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-btn.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 70%;
+        background: rgba(7, 18, 31, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        transform: translateX(100%);
+        transition: 0.4s ease-in-out;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    nav ul.active {
+        transform: translateX(0);
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .flight-container, 
+    .offer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-box {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
 </style>
 </head>
 
@@ -350,12 +437,18 @@ footer{
 
     <div class="logo">SkyFly</div>
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#flights">Flights</a></li>
-        <li><a href="#offers">Offers</a></li>
-        <li><a href="#support">Support</a></li>
+    <ul id="navLinks">
+        <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+        <li><a href="#flights" onclick="toggleMenu()">Flights</a></li>
+        <li><a href="#offers" onclick="toggleMenu()">Offers</a></li>
+        <li><a href="#support" onclick="toggleMenu()">Support</a></li>
     </ul>
+
+    <div class="menu-btn" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
 </nav>
 
@@ -538,6 +631,13 @@ footer{
 </footer>
 
 <script>
+
+function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const menuBtn = document.querySelector('.menu-btn');
+    navLinks.classList.toggle('active');
+    menuBtn.classList.toggle('active');
+}
 
 function bookFlight(){
 
